@@ -1,0 +1,34 @@
+# Necessary to prevent problems when using a controller named "index" and having a root index.php
+# more here: http://httpd.apache.org/docs/2.2/content-negotiation.html
+Options -MultiViews
+
+# Activates URL rewriting (like myproject.com/controller/action/1/2/3)
+RewriteEngine On
+
+# Prevent people from looking directly into folders
+Options -Indexes
+
+# Sometimes Apache strips the Authorization header, this fixes that behavior
+RewriteCond %{HTTP:Authorization} ^(.*)
+RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
+
+# Rewrite the url to the actual file
+RewriteCond %{QUERY_STRING} ^url=(.*)$
+RewriteRule ^resolve/tmp/ %1 [L,NC]
+
+# Rewrite rule to check for user auth before giving the file
+RewriteRule ^access/music/([A-Za-z0-9-_]+).([A-Za-z0-9-_.]+) http://192.168.0.23:8181/api/v1/access/$1/$2 [QSA,L,NC]
+
+# If the following conditions are true, then rewrite the URL:
+# If the requested filename is not a directory,
+RewriteCond %{REQUEST_FILENAME} !-d
+# and if the requested filename is not a regular file that exists,
+RewriteCond %{REQUEST_FILENAME} !-f
+# and if the requested filename is not a symbolic link,
+RewriteCond %{REQUEST_FILENAME} !-l
+# then rewrite the URL in the following way:
+# Take the whole request filename and provide it as the value of a
+# "url" query parameter to index.php. Append any query string from
+# the original URL as further query parameters (QSA), and stop
+# processing this .htaccess file (L).
+RewriteRule ^(.*)$ index.php [QSA,L]
