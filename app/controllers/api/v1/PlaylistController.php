@@ -2,8 +2,6 @@
 
 namespace App\Controllers\API\V1;
 
-use MongoDB\BSON\ObjectID;
-use MongoDB\Driver\Exception\InvalidArgumentException;
 use Soda\Core\Http\Controller;
 
 class PlaylistController extends Controller

@@ -2,14 +2,11 @@
 
 namespace App\Controllers\Admin;
 
-use App\Controllers\SharedController;
-use MongoDB;
+use App\Services\AlbumsService;
+use App\Services\HeadersService;
+use App\Services\PlaylistsService;
 use MongoDB\BSON\ObjectID;
 use Soda\Core\Http\Controller;
-use Upload\File;
-use Upload\Storage\FileSystem;
-use Upload\Validation\Extension;
-use Upload\Validation\Size;
 
 class AlbumsController extends Controller
 {
@@ -97,7 +94,7 @@ class AlbumsController extends Controller
         $form = $this->getRequest()->request->all();
 
         try {
-            \AlbumsService::updateAlbum($_id, $form);
+            AlbumsService::updateAlbum($_id, $form);
 
             setOpR(true, 'Success');
         } catch (\Exception $e) {
@@ -110,7 +107,7 @@ class AlbumsController extends Controller
     protected function removeImagePost($_id)
     {
         try {
-            \AlbumsService::removeAlbumImage($_id);
+            AlbumsService::removeAlbumImage($_id);
 
             setOpR(true, 'Success.');
         } catch (\Exception $e) {
@@ -145,8 +142,8 @@ class AlbumsController extends Controller
     {
         $form = $this->getRequest()->query->all();
         try {
-            \AlbumsService::addUploadedTrackToAlbum($_id, $form);
-            \HeadersService::refreshHeaderForAlbum($_id);
+            AlbumsService::addUploadedTrackToAlbum($_id, $form);
+            HeadersService::refreshHeaderForAlbum($_id);
         } catch (\Exception $e) {
 
         }
@@ -237,9 +234,9 @@ class AlbumsController extends Controller
         $form = $this->getRequest()->request->all();
 
         try {
-            $track = \AlbumsService::updateSingleTrackInAlbum($_albumId, $_trackId, $form);
-            \PlaylistsService::updateSingleTrackInAllPlaylists($track);
-            \HeadersService::refreshHeaderForAlbum($_albumId);
+            $track = AlbumsService::updateSingleTrackInAlbum($_albumId, $_trackId, $form);
+            PlaylistsService::updateSingleTrackInAllPlaylists($track);
+            HeadersService::refreshHeaderForAlbum($_albumId);
 
             setOpR(true, 'Success');
         } catch (\Exception $e) {

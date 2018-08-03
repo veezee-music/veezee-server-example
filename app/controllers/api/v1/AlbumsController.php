@@ -20,12 +20,4 @@ class AlbumsController extends Controller
     {
         parent::beforeActionExecution($action_name, $action_arguments);
     }
-
-    protected function latest()
-    {
-        $params = $this->getRequest()->query;
-
-        // build the home page playlist collection
-        $playlists = $this->dm->selectCollection(PLAYLISTS)->find([], ['limit' => 4]);
-    }
 }

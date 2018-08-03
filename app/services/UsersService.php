@@ -1,6 +1,8 @@
 <?php
 
-class UsersService
+namespace App\Services;
+
+class UsersService extends BaseService
 {
     
 }

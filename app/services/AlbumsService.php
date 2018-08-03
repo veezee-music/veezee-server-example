@@ -1,5 +1,8 @@
 <?php
 
+namespace App\Services;
+
+use MongoDB;
 use MongoDB\BSON\ObjectId;
 use Upload\File;
 use Upload\Storage\FileSystem;

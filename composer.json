@@ -1,5 +1,5 @@
 {
-    "name": "vsg24/veezee-music",
+    "name": "eezee-music/veezee-server-example",
     "type": "project",
 	"description": "veezee music backedn",
     "require": {

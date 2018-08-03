@@ -3,13 +3,8 @@
 namespace App\Controllers;
 
 use App\Utils\AuthHelper;
-use App\Utils\EncryptionHelper;
-use App\Utils\JWTHelper;
-use App\Utils\PasswordV1;
-use MongoDB;
 use MongoDB\BSON\ObjectID;
 use Soda\Core\Http\Controller;
-use MongoDB\BSON\Regex;
 
 class AccountController extends Controller
 {

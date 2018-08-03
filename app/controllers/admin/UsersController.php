@@ -2,9 +2,6 @@
 
 namespace App\Controllers\Admin;
 
-use App\Controllers\SharedController;
-use MongoDB;
-use MongoDB\BSON\ObjectID;
 use Soda\Core\Http\Controller;
 
 class UsersController extends Controller

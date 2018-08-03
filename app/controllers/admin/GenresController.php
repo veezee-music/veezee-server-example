@@ -2,14 +2,9 @@
 
 namespace App\Controllers\Admin;
 
-use App\Controllers\SharedController;
-use MongoDB;
+use App\Services\GenresService;
 use MongoDB\BSON\ObjectID;
 use Soda\Core\Http\Controller;
-use Upload\File;
-use Upload\Storage\FileSystem;
-use Upload\Validation\Extension;
-use Upload\Validation\Size;
 
 class GenresController extends Controller
 {
@@ -45,7 +40,7 @@ class GenresController extends Controller
         $form = $this->getRequest()->request->all();
 
         try {
-            \GenresService::createGenre($form);
+            GenresService::createGenre($form);
             setOpR(true, 'Success.');
         } catch (\Exception $e) {
             setOpR(false, $e->getMessage());
@@ -66,7 +61,7 @@ class GenresController extends Controller
         $form = $this->getRequest()->request->all();
 
         try {
-            \GenresService::updateGenre($_id, $form);
+            GenresService::updateGenre($_id, $form);
             setOpR(true, 'Success.');
         } catch (\Exception $e) {
             setOpR(false, $e->getMessage());

@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Services;
+
 use Upload\File;
 use Upload\Storage\FileSystem;
 use Upload\Validation\Extension;

@@ -4,7 +4,6 @@ namespace App\Controllers\API\V1;
 
 use MongoDB\BSON\ObjectID;
 use MongoDB\BSON\Regex;
-use MongoDB\Driver\Exception\InvalidArgumentException;
 use Soda\Core\Http\Controller;
 
 class APIController extends Controller

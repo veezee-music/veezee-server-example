@@ -2,14 +2,10 @@
 
 namespace App\Controllers\Admin;
 
-use App\Controllers\SharedController;
+use App\Services\AssetsService;
 use MongoDB;
 use MongoDB\BSON\ObjectID;
 use Soda\Core\Http\Controller;
-use Upload\File;
-use Upload\Storage\FileSystem;
-use Upload\Validation\Extension;
-use Upload\Validation\Size;
 
 class ArtistsController extends Controller
 {
@@ -81,7 +77,7 @@ class ArtistsController extends Controller
         $entries = ['name' => $name];
 
         if(isset($_FILES['image']) && file_exists($_FILES['image']['tmp_name']) && is_uploaded_file($_FILES['image']['tmp_name'])) {
-            $entries['image'] = \AssetsService::saveUploadedArtwork('image');
+            $entries['image'] = AssetsService::saveUploadedArtwork('image');
         }
 
         $newArtist = $this->dm->selectCollection(ARTISTS)->findOneAndUpdate(

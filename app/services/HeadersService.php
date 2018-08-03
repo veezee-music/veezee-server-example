@@ -1,5 +1,7 @@
 <?php
 
+namespace App\Services;
+
 use MongoDB\BSON\ObjectId;
 
 class HeadersService extends BaseService

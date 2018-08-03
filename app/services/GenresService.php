@@ -1,6 +1,9 @@
 <?php
 
+namespace App\Services;
+
 use MongoDB\BSON\ObjectId;
+use MongoDB;
 
 class GenresService extends BaseService
 {

@@ -2,14 +2,11 @@
 
 namespace App\Controllers\Admin;
 
-use App\Controllers\SharedController;
+use App\Services\AssetsService;
+use App\Services\PlaylistsService;
 use MongoDB;
 use MongoDB\BSON\ObjectID;
 use Soda\Core\Http\Controller;
-use Upload\File;
-use Upload\Storage\FileSystem;
-use Upload\Validation\Extension;
-use Upload\Validation\Size;
 
 class PlaylistsController extends Controller
 {
@@ -88,12 +85,12 @@ class PlaylistsController extends Controller
         }
 
         if(isset($_FILES['image']) && file_exists($_FILES['image']['tmp_name']) && is_uploaded_file($_FILES['image']['tmp_name'])) {
-            $imageFileName = \AssetsService::saveUploadedArtwork('image');
+            $imageFileName = AssetsService::saveUploadedArtwork('image');
         }
 
         if(isset($_FILES['headerImage']) && file_exists($_FILES['headerImage']['tmp_name']) && is_uploaded_file($_FILES['headerImage']['tmp_name']))
         {
-            $headerImageFileName = \AssetsService::saveUploadedHeaderImage('headerImage');
+            $headerImageFileName = AssetsService::saveUploadedHeaderImage('headerImage');
         }
 
         $existingPlaylist = (array) $this->dm->selectCollection(PLAYLISTS)->findOne(
@@ -179,7 +176,7 @@ class PlaylistsController extends Controller
     protected function removeImagePost($_id)
     {
         try {
-            \PlaylistsService::removePlaylistImage($_id);
+            PlaylistsService::removePlaylistImage($_id);
 
             setOpR(true, 'Success.');
         } catch (\Exception $e) {
