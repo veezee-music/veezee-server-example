@@ -4,10 +4,6 @@
 //$headersService->addTrackToHeader('5b49ca96b3cdceedf87f1575', '5b49caaeb3cdce2ea93e4336');
 //$headersService->refreshHeader('5b49ca96b3cdceedf87f1575', '5b496529b3cdceedf87f1572');
 
-//
-header('Access-Control-Allow-Origin: *');
-header('Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept, Cache-Control');
-header('Access-Control-Allow-Methods: GET, POST, PUT');
 if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     // The request is using the POST method
     die();
