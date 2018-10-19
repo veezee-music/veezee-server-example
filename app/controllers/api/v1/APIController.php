@@ -5,10 +5,12 @@ namespace App\Controllers\API\V1;
 use MongoDB\BSON\ObjectID;
 use MongoDB\BSON\Regex;
 use Soda\Core\Http\Controller;
+use App\Controllers\API\V1\Account\AccountController;
 
 class APIController extends Controller
 {
     private $dm;
+    private $user;
 
     public function __construct()
     {
@@ -19,6 +21,26 @@ class APIController extends Controller
     public function beforeActionExecution($action_name, $action_arguments)
     {
         parent::beforeActionExecution($action_name, $action_arguments);
+
+        $authHeader = $this->getRequest()->headers->get('Authorization');
+        $token = extractAuthorizationToken($authHeader);
+
+        $accountController = new AccountController();
+        $userAndToken = $accountController->getUserAndToken($token);
+
+        if(isset($userAndToken['code']) && isset($userAndToken['error'])) {
+            // error
+            return;
+        }
+
+        $user = $userAndToken['user'];
+
+        $this->user = $user;
+        if(isset($userAndToken['hasNewToken']) && $userAndToken === true) {
+            $this->getResponse()->headers->add([
+                'Authorization' => 'Bearer ' . $userAndToken['token']
+            ]);
+        }
     }
 
     protected function access($sub, $name)
@@ -137,6 +159,25 @@ class APIController extends Controller
                 'type' => 'Album',
                 'albumList' => $latestPlaylists
             ];
+        }
+
+        if($this->user != null) {
+            $userPlaylists = $this->user['playlists'];
+            $activePlaylists = [];
+            foreach ($userPlaylists as $playlist) {
+                if(isset($playlist['tracks']) && count($playlist['tracks']) > 0) {
+                    $activePlaylists[] = $playlist;
+                }
+            }
+            $userPlaylists = $activePlaylists;
+            setAbsoluteUrlForPlaylistsList($userPlaylists);
+            if(count($userPlaylists) > 0) {
+                $result[] = [
+                    'title' => 'Your Playlists',
+                    'type' => 'CompactAlbum',
+                    'albumList' => $userPlaylists
+                ];
+            }
         }
 
         return $this->echoNormal($result);
