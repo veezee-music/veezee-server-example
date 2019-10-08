@@ -17,7 +17,7 @@ Do not use in a production environment without reviewing the security of the cod
 
 You'll need a server that supports `.htaccess` such as Apache 2.4. You can then create a virtual host and set its root directory to `/wwwroot` of this project.
 
-Then go to `wwwroot/` and rename the `example-content` folder to `content`. Also in `wwwroot` rename the `.example-htaccess` to `.htaccess` and then open it and change line 20 to match your setup (local address in which you configured Apache to run veezee server).
+Then go to `wwwroot/` and rename the `example-content` folder to `content`. Also in `wwwroot` rename the `.example-htaccess` to `.htaccess` and then open it and change line 31 to match your setup (local address in which you configured Apache to run veezee server).
 
 Then go to  `/config` and rename `example-app-config.php` to `app.config.php` and if you want to use Google sign in, delete `example-client_secret.json` and replace it with the `client_secret.json` file provided by Google.
 
