@@ -15,6 +15,8 @@ Do not use in a production environment without reviewing the security of the cod
 
 ## How to use
 
+If using Apache, enable mod_rewrite and mod_headers in `httpd.conf`.
+
 Install dependencies using Composer with command `composer install`. Now You'll need a server that supports `.htaccess` such as Apache 2.4. You can then create a virtual host and set its root directory to `/wwwroot` of this project.
 
 Then go to `wwwroot/` and rename the `example-content` folder to `content`. Also in `wwwroot` rename the `.example-htaccess` to `.htaccess` and then open it and change line 31 to match your setup (local address in which you configured Apache to run veezee server).
